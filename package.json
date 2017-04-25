@@ -1,7 +1,7 @@
 {
-  "name": "react-boilerplate",
+  "name": "learn-redux",
   "version": "1.0.0",
-  "description": "React boilerplate",
+  "description": "Intro to Redux",
   "main": "index.js",
   "scripts": {
     "test": "karma start",
@@ -39,6 +39,7 @@
     "mocha": "^2.4.5",
     "node-sass": "^3.4.2",
     "react-addons-test-utils": "^0.14.6",
+    "redux": "^3.3.1",
     "sass-loader": "^4.1.1",
     "script-loader": "^0.6.1",
     "style-loader": "^0.13.0",
