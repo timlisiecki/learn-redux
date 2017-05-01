@@ -2,15 +2,9 @@ var redux = require("redux");
 
 console.log("Starting redux example");
 
-// Reducer
-var stateDefault = {
-	name: "Anonymous",
-	hobbies: [],
-	movies: []
-};
-var nextHobbyId = 1;
-var nextMovieId = 1;
-
+// ----------------------------------
+// Name Reducer and Action Generators
+// ----------------------------------
 var nameReducer = (state = "Anonymous", action) => {
 	switch (action.type) {
 		case "CHANGE_NAME":
@@ -20,6 +14,17 @@ var nameReducer = (state = "Anonymous", action) => {
 	};
 };
 
+var changeName = (name) => {
+	return {
+		type: "CHANGE_NAME",
+		name //ES6 equivalent to name: name
+	}
+};
+
+// -----------------------------------
+// Hobby Reducer and Action Generators
+// -----------------------------------
+var nextHobbyId = 1;
 var hobbiesReducer = (state = [], action) => {
 	switch (action.type) {
 		case "ADD_HOBBY":
@@ -38,6 +43,23 @@ var hobbiesReducer = (state = [], action) => {
 	}
 };
 
+var addHobby = (hobby) => {
+	return {
+		type: "ADD_HOBBY",
+		hobby
+	}
+};
+var removeHobby = (id) => {
+	return {
+		type: "REMOVE_HOBBY",
+		id
+	}
+};
+
+// ------------------------------------
+// Movies Reducer and Action Generators
+// ------------------------------------
+var nextMovieId = 1;
 var moviesReducer = (state = [], action) => {
 	switch (action.type) {
 		case "ADD_MOVIE":
@@ -55,6 +77,24 @@ var moviesReducer = (state = [], action) => {
 			return state;
 	}
 };
+
+var addMovie = (title, genre) => {
+	return {
+		type: "ADD_MOVIE",
+		title,
+		genre
+	}
+};
+var removeMovie = (id) => {
+	return {
+		type: "REMOVE_MOVIE",
+		id
+	}
+};
+
+// -------------------
+// Main Reducer
+// -------------------
 
 var reducer = redux.combineReducers({
 	name: nameReducer,
@@ -80,48 +120,20 @@ var unsubscribe = store.subscribe(() => {
 var currentState = store.getState();
 console.log("currentState", currentState);
 
+// ------------
 // ACTIONS
-store.dispatch({
-	type: "CHANGE_NAME",
-	name: "Tim"
-});
+// ------------
+store.dispatch(changeName("Tim"));
 
-store.dispatch({
-	type: "ADD_HOBBY",
-	hobby: "Boating"
-});
+store.dispatch(addHobby("Boating"));
+store.dispatch(addHobby("Fishing"));
+store.dispatch(removeHobby(2));
 
-store.dispatch({
-	type: "ADD_HOBBY",
-	hobby: "Fishing"
-});
+store.dispatch(changeName("Joe"));
 
-store.dispatch({
-	type: "REMOVE_HOBBY",
-	id: 2
-});
-
-store.dispatch({
-	type: "CHANGE_NAME",
-	name: "Joe"
-});
-
-store.dispatch({
-	type: "ADD_MOVIE",
-	title: "Star Wars Episode VIII: The Last Jedi",
-	genre: "Sci-fi"
-});
-
-store.dispatch({
-	type: "ADD_MOVIE",
-	title: "Rogue One: A Star Wars Story",
-	genre: "Sci-fi"
-});
-
-store.dispatch({
-	type: "REMOVE_MOVIE",
-	id: 1
-});
+store.dispatch(addMovie("Star Wars Episode VIII: The Last Jedi", "Sci-fi"));
+store.dispatch(addMovie("Rogue One: A Star Wars Story"));
+store.dispatch(removeMovie(1));
 
 
 
